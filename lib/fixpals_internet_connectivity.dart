@@ -33,7 +33,7 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
         });
         add(InternetRetrievedEvent());
       } else {
-        if (_timer != null) _timer!.cancel();
+        _timer?.cancel();
         add(InternetLostEvent());
       }
     });
@@ -41,7 +41,7 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
 
   @override
   Future<void> close() {
-    if (_timer != null) _timer!.cancel();
+    _timer?.cancel();
     _internetSubscription?.cancel();
     return super.close();
   }
