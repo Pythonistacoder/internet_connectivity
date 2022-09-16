@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+import '../constants/connected_status.dart';
+
 class InternetConnector {
   final Connectivity _connectivity = Connectivity();
 
@@ -11,9 +13,9 @@ class InternetConnector {
     await for (final connectivityResult in connectivityStream) {
       if (connectivityResult == ConnectivityResult.mobile ||
           connectivityResult == ConnectivityResult.wifi) {
-        yield "CONNECTED";
+        yield CONNECTED;
       } else {
-        yield "DISCONNECTED";
+        yield DISCONNECTED;
       }
     }
   }
