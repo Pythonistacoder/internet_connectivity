@@ -59,8 +59,10 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
 
   void checkInternetConnection(ApiResponseModel responseModel) {
     if (responseModel is ResponseModel) {
+      onlineStatus = CONNECTED;
       add(InternetRetrievedEvent());
     } else if (responseModel is ErrorModel) {
+      onlineStatus = DISCONNECTED;
       add(InternetLostEvent());
     }
   }
