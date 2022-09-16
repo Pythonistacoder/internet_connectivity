@@ -6,7 +6,7 @@ Future<String> checkInternet() async {
     await http.get(
       url,
       headers: {"Content-Type": "application/json"},
-    ).timeout(const Duration(seconds: 3));
+    ).timeout(const Duration(seconds: 10));
     return "CONNECTED";
   } catch (error) {
     return "DISCONNECTED";
