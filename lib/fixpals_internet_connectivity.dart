@@ -48,6 +48,12 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
     });
   }
 
+  ///TODO: while creating a bloc to fetch data from backend try to link that block with this bloc
+  ///so that if there is a response model it gets connected and if its
+  ///error model then it disconnects the internet
+  ///
+  ///also try to break the timer if there is a request and set the timer again
+
   @override
   Future<void> close() {
     _timer?.cancel();
