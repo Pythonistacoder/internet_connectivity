@@ -3,6 +3,8 @@ description: A new Flutter package project.
 version: 0.0.1
 homepage:
 
+publish_to: none
+
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=1.17.0"
@@ -13,6 +15,9 @@ dependencies:
   flutter_bloc: ^8.1.1
   connectivity_plus: ^2.3.6+1
   http: 0.13.4
+  backend_connect:
+    git: 
+      url: https://github.com/Pythonistacoder/backend_connect
 
 dev_dependencies:
   flutter_test:
