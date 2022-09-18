@@ -28,16 +28,11 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
       if (result == CONNECTED) {
         _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
           checkInternet().then((String connectionStatus) {
-            if (connectionStatus == CONNECTED) {
-              if (onlineStatus != connectionStatus) {
-                add(InternetRetrievedEvent());
-                onlineStatus = connectionStatus;
-              }
-            } else {
-              if (onlineStatus != connectionStatus) {
-                add(InternetLostEvent());
-                onlineStatus = connectionStatus;
-              }
+            if (connectionStatus != onlineStatus) {
+              connectionStatus == CONNECTED
+                  ? add(InternetRetrievedEvent())
+                  : add(InternetLostEvent());
+              onlineStatus = connectionStatus;
             }
           });
         });
@@ -59,11 +54,9 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
 
   void checkInternetConnection(ApiResponseModel responseModel) {
     if (responseModel is ResponseModel) {
-      print(responseModel.message);
       onlineStatus = CONNECTED;
       add(InternetRetrievedEvent());
     } else if (responseModel is ErrorModel) {
-      print(responseModel.message);
       onlineStatus = DISCONNECTED;
       add(InternetLostEvent());
     }
