@@ -1,9 +1,9 @@
 library fixpals_internet_connectivity;
 
 import 'dart:async';
-import 'package:backend_connect/response/models/abstract/api_response_model.dart';
-import 'package:backend_connect/response/models/implementation/error_model.dart';
-import 'package:backend_connect/response/models/implementation/response_model.dart';
+// import 'package:backend_connect/response/models/abstract/api_response_model.dart';
+// import 'package:backend_connect/response/models/implementation/error_model.dart';
+// import 'package:backend_connect/response/models/implementation/response_model.dart';
 import 'package:fixpals_internet_connectivity/constants/connected_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +26,7 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
     _internetSubscription =
         _internetConnector.getInternetStatusStream().listen((result) {
       if (result == CONNECTED) {
+        _timer?.cancel();
         _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
           checkInternet().then((String connectionStatus) {
             if (connectionStatus != onlineStatus) {
@@ -52,15 +53,15 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
   ///
   ///also try to break the timer if there is a request and set the timer again
 
-  void checkInternetConnection(ApiResponseModel responseModel) {
-    if (responseModel is ResponseModel) {
-      onlineStatus = CONNECTED;
-      add(InternetRetrievedEvent());
-    } else if (responseModel is ErrorModel) {
-      onlineStatus = DISCONNECTED;
-      add(InternetLostEvent());
-    }
-  }
+  // void checkInternetConnection(ApiResponseModel responseModel) {
+  //   if (responseModel is ResponseModel) {
+  //     onlineStatus = CONNECTED;
+  //     add(InternetRetrievedEvent());
+  //   } else if (responseModel is ErrorModel) {
+  //     onlineStatus = DISCONNECTED;
+  //     add(InternetLostEvent());
+  //   }
+  // }
 
   @override
   Future<void> close() {
