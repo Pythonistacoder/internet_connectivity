@@ -27,7 +27,7 @@ class InternetConnectivityBloc extends Bloc<InternetEvent, InternetState> {
         _internetConnector.getInternetStatusStream().listen((result) {
       if (result == CONNECTED) {
         _timer?.cancel();
-        _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+        _timer = Timer.periodic(const Duration(seconds: 12), (timer) {
           checkInternet().then((String connectionStatus) {
             if (connectionStatus != onlineStatus) {
               connectionStatus == CONNECTED
